@@ -1,0 +1,30 @@
+import pandas as pd            # importing pandas library into environment
+import numpy as np            # importing numpy library into environment
+import matplotlib.pyplot as plt    # importing matplotlib library into environment
+%matplotlib inline                        # Using this the plots are displayed in line
+recent_grads = pd.read_csv('recent-grads.csv')    # Importing the data in pandas using read_csv() method and assigning the data to recent_grads variable
+recent_grads.iloc[0]                # retrieving the first row of the data in recent_grads
+recent_grads.head()               # Retrieving few of the top rows to see 
+recent_grads.tail()                    # retrieving few of the bottom rows to see
+recent_grads.describe()           # Taking the description of data with the 5-point summary(min, max, 1,2,3rd quartiles) along with std, mean, count.
+raw_data_count =len(recent_grads)    # length of the dataset or total number of rows in dataset using len() function
+print(raw_data_count)                    # Displaying the number of rows in dataset
+recent_grads = recent_grads.dropna()    # Using the dropna() method along with he dataset 'recent_grads' to remove or drop the rows with null values and set the cleared data again to recent_grads variable
+cleaned_data_count = len(recent_grads)    # Assigning the length of new cleared data to the cleared_Data_count variable
+print(cleaned_data_count)    # displaying the number of rows in the new data after removing the null value rows.
+ax1 = recent_grads.plot(x='Sample_size', y='Median', kind='scatter', title='Sample_size vs Medain')
+ax2 = recent_grads.plot(x='Sample_size', y='Unemployment_rate', kind='scatter', title='Sample_size vs Unemployment_rate')
+ax3 = recent_grads.plot(x='Full_time', y='Median', kind='scatter', title='Full_time vs Median')
+ax4 = recent_grads.plot(x='ShareWomen', y='Unemployment_rate', kind='scatter', title='ShareWomen vs Unemployment_rate')
+ax5 = recent_grads.plot(x='Men', y='Median', kind='scatter', title='Men vs Median')
+ax6 = recent_grads.plot(x='Women', y='Median', kind='scatter', title='Sample_size vs Unemployment_rate')
+cols = ['Sample_size', 'Median', 'Employed', 'Full_time', 'ShareWomen', 'Unemployment_rate', 'Men', 'Women']
+fig = plt.figure(figsize=(9,24))
+for r in range(1,8):
+    ax = fig.add_subplot(8,1,r)
+    ax=recent_grads[cols[r]].plot(kind='hist', rot=40,title = cols[r])
+from pandas.tools.plotting import scatter_matrix
+scatter_matrix(recent_grads[['Sample_size','Median']], figsize=(10,10))
+scatter_matrix(recent_grads[['Sample_size','Median', 'Unemployment_rate']], figsize=(14,14))
+recent_grads[:10].plot.bar(x='Major', y='ShareWomen')
+recent_grads[163:].plot.bar(x='Major', y='Unemployment_rate')
